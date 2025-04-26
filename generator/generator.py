@@ -5,6 +5,7 @@ from re import fullmatch
 from random import choice, choices
 from datetime import datetime, timedelta as td
 from time import sleep
+from dotenv import load_dotenv
 
 # 0. Входные данные:____________________________________________________________________________________________________
 
@@ -690,8 +691,9 @@ data = response.json()
 city = data['city']
 
 # Получение погоды:
-API_KEY = '0c38b275bf34545fd85bc059b6f97c0b'
-url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric'
+load_dotenv() # загружаю переменные из .env в память (в переменные окружения)
+api_key = os.getenv("API_KEY") # получаю из окружения переменную API_KEY
+url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
 response = requests.get(url)
 data = response.json()
 weather_id = data['weather'][0]['id'] # например: 520
