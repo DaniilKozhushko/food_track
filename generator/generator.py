@@ -684,19 +684,23 @@ week_day = datetime.today().strftime('%A')
 amount_guests_today = round(choices(guests, weights=week_days[week_day], k=1)[0] * chance_1)
 
 # 2. Влияние погодных условий на количество гостей:_____________________________________________________________________
+try:
+    # Получение города:
+    response = requests.get('http://ip-api.com/json/', timeout=20)
+    response.raise_for_status() # проверяю, что код ответа 200 (успех), иначе - ошибка
+    data = response.json() # преобразую ответ сервера в json
+    city = data.get('city', 'Tbilisi') # беру из ответа город (иначе - Tbilisi)
 
-# Получение города:
-response = requests.get('http://ip-api.com/json/')
-data = response.json()
-city = data['city']
-
-# Получение погоды:
-load_dotenv() # загружаю переменные из .env в память (в переменные окружения)
-api_key = os.getenv("API_KEY") # получаю из окружения переменную API_KEY
-url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
-response = requests.get(url)
-data = response.json()
-weather_id = data['weather'][0]['id'] # например: 520
+    # Получение погоды:
+    load_dotenv() # загружаю переменные из .env в память (в переменные окружения)
+    api_key = os.getenv("API_KEY") # получаю из окружения переменную API_KEY
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
+    response = requests.get(url, timeout=20)
+    response.raise_for_status()  # проверяю, что код ответа 200 (успех), иначе - ошибка
+    data = response.json() # преобразую ответ сервера в json
+    weather_id = data['weather'][0]['id'] # например: 520
+except Exception:
+    weather_id = 800
 
 # Изменение количества гостей в зависимости от погоды:
 ids = {'2': 0.64, '3': 0.93, '5': 0.87, '6': 0.98, '7': 0.12, '8': 1.17}
