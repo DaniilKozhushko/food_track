@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # копирую весь проект
 COPY . .
 
-# запускаю python и generator.py, когда запускается контейнер
-CMD ["python", "generator.py"]
+# перевожу в режим ожидания
+CMD ["sleep", "infinity"]
