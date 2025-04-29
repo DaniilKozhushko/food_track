@@ -692,7 +692,7 @@ try:
     city = data.get('city', 'Tbilisi') # беру из ответа город (иначе - Tbilisi)
 
     # Получение погоды:
-    load_dotenv() # загружаю переменные из .env в память (в переменные окружения)
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')) # загружаю переменные из .env в память (в переменные окружения)
     api_key = os.getenv("API_KEY") # получаю из окружения переменную API_KEY
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     response = requests.get(url, timeout=20)
