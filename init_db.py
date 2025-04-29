@@ -1,5 +1,8 @@
 import psycopg2
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # получаю из окружения переменные
 db_name = os.getenv("POSTGRES_DB")
