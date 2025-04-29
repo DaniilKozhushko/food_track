@@ -1,7 +1,7 @@
 services:
     db:
         image: postgres:17 # официальный последний образ postgresql
-        container_name: foodtrack_db # название контейнера (docker ps)
+        container_name: foodtrack_db # название контейнера
         restart: always # контейнер автоматически перезапустится при сбое
         environment: # беру переменные из окружения
             POSTGRES_DB: ${POSTGRES_DB}
