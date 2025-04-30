@@ -43,11 +43,11 @@ for category in menus:
         cur.execute("""
         INSERT INTO sub_categories (sub_category_name)
         VALUES (%s)
-        ON CONFLICT (sub_category_name) DO NOTHING
-        RETURNING sub_category_id
+        ON CONFLICT (sub_category_name) DO NOTHING;
         """, (sub_category,))
 
-        # получение category_id из RETURNING
+        # запрос на получение sub_category_id
+        cur.execute("SELECT sub_category_id FROM sub_categories WHERE sub_category_name = %s", (sub_category,))
         sub_cat_id = cur.fetchone()[0]
 
         # запрос на вставку данных в таблицу categories_sub_categories
