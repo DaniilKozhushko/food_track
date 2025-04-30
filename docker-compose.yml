@@ -4,23 +4,29 @@ services:
     container_name: foodtrack_app # название контейнера
     restart: always # перезапускать всегда, если упадёт
     env_file: # подключить файл .env и взять переменные из него
-      - .env
+        - .env
     volumes:
-      - .:/app
+        - .:/app
     depends_on:
-      - db # db должен быть запущен первым
+        db: # db должен быть запущен первым
+            condition: service_healthy
 
   db:
     image: postgres:17  # за основу взять образ postgresql 17
     container_name: foodtrack_db  # название контейнера
     restart: always # перезапускать всегда, если упадёт
     environment: # задаются переменные окружения
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432" # для подключения к БД снаружи
+        - "5432:5432" # для подключения к БД снаружи
     volumes:
-      - ./pgdata:/var/lib/postgresql/data # все файлы БД сохранятся в pgdata/...
+        - ./pgdata:/var/lib/postgresql/data # все файлы БД сохранятся в pgdata/...
     env_file: # переменные брать из .env
-      - .env
+        - .env
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
