@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 # 0. Входные данные:____________________________________________________________________________________________________
 
 # добавляю новый путь для поиска модулей
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data')))
 from menus import menus
 
 # Шансы для внесения погрешности:

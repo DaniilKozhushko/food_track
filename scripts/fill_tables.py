@@ -1,6 +1,9 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+
+# добавляю новый путь для поиска модулей
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data')))
 from menus import menus
 
 load_dotenv()
