@@ -1,15 +1,26 @@
 services:
-    db:
-        image: postgres:17 # официальный последний образ postgresql
-        container_name: foodtrack_db # название контейнера
-        restart: always # контейнер автоматически перезапустится при сбое
-        environment: # беру переменные из окружения
-            POSTGRES_DB: ${POSTGRES_DB}
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        ports:
-            - "5432:5432"
-        volumes:
-            - ./pgdata:/var/lib/postgresql/data # сохраняю данные БД в папку
-        env_file:
-            - .env
+  app:
+    build: . # собрать образ из текущей папки
+    container_name: foodtrack_app # название контейнера
+    restart: always # перезапускать всегда, если упадёт
+    env_file: # подключить файл .env и взять переменные из него
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db # db должен быть запущен первым
+
+  db:
+    image: postgres:17  # за основу взять образ postgresql 17
+    container_name: foodtrack_db  # название контейнера
+    restart: always # перезапускать всегда, если упадёт
+    environment: # задаются переменные окружения
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432" # для подключения к БД снаружи
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data # все файлы БД сохранятся в pgdata/...
+    env_file: # переменные брать из .env
+      - .env
