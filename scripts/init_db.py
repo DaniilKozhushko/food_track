@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS guest_types (
 cur.execute("""
 CREATE TABLE IF NOT EXISTS dishes(
     dish_id SERIAL,
-    dish_name VARCHAR(200) UNIQUE NOT NULL,
+    dish_name VARCHAR(200) NOT NULL,
     category_id INT NOT NULL,
     sub_category_id INT NOT NULL,
     price INT NOT NULL,
