@@ -1,5 +1,6 @@
 import psycopg2
 import os
+import sys
 from dotenv import load_dotenv
 
 # добавляю новый путь для поиска модулей
