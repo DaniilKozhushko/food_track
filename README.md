@@ -24,7 +24,7 @@
 На текущем этапе проекта я добавил файлы `Dockerfile`, `.dockerignore` и `requirements.txt`, чтобы упаковать приложение в Docker-контейнер. Файл `.dockerignore` исключает ненужные файлы из контейнера (пока только `.git`), а в `Dockerfile` настроена сборка образа с необходимыми зависимостями (2 библиотеки для python). По мере роста проекта я буду дополнять эти файлы, а в конечном итоге выложу готовый образ на Docker Hub.
 
 ### **3. Извлечение данных из файлов и загрузка в PostgreSQL**
-![food_track](https://github.com/user-attachments/assets/f8cb4f3f-8180-43ea-a6b7-12dfa10a1c86)
+![food_track](https://github.com/user-attachments/assets/ac981a6c-f6f4-48c0-90c0-7859fbfc1e5f)
 Для визуализации БД был задействован инструмент [drawsql.app](https://drawsql.app/teams/self-study/diagrams/food-track). Также во время работы возникла необходимость в структурировании и улучшении планирования, поэтому я воспользовался [Miro](https://miro.com/ru/). Для работы с файловой системой (в рамках локального компьютера и контейнера docker) были подключены модуль `os` и библиотека `dotenv`. Для создания БД и таблиц, были добавлены файлы `docker-compose.yml` и `init_db.py` с основными скриптами (с помощью `psycopg2`).
 
 ![python](https://img.shields.io/badge/python-3.13-yellow)
