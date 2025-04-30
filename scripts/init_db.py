@@ -26,7 +26,7 @@ cur = conn.cursor()
 cur.execute("""
 CREATE TABLE IF NOT EXISTS categories (
     category_id SERIAL,
-    name VARCHAR(23) UNIQUE NOT NULL,
+    category_name VARCHAR(23) UNIQUE NOT NULL,
     PRIMARY KEY (category_id)
 );
 """)
