@@ -27,6 +27,15 @@ conn = psycopg2.connect(
 # создаю курсор
 cur = conn.cursor()
 
+# запрос на вставку данных в таблицу categories
+cur.execute("""
+INSERT INTO guest_types (guest_type_name)
+VALUES
+    (%s),
+    (%s),
+    (%s);
+""", ('man', 'woman', 'child'))
+
 for category in menus:
     # запрос на вставку данных в таблицу categories
     cur.execute("""
